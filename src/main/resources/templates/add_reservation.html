@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservierung erfassen</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Neue Reservierung erfassen</h1>
+    <form th:action="@{/reservation/add}" th:object="${reservation}" method="post">
+        
+        <div class="form-group">
+            <label>Patient</label>
+            <select th:field="*{patient}" class="form-control" required>
+                <option th:each="p : ${patients}" 
+                        th:value="${p.id}" 
+                        th:text="${p.firstName + ' ' + p.lastName + ' (' + p.svnr + ')'}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Gerät</label>
+            <select th:field="*{device}" class="form-control" required>
+                <option th:each="d : ${devices}" 
+                        th:value="${d.id}" 
+                        th:text="${d.type + ' - ' + d.id + ' (Raum: ' + d.location + ')'}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Reservierungszeit</label>
+            <input type="datetime-local" th:field="*{reservationTime}" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label>Körperregion</label>
+            <select th:field="*{bodyRegion}" class="form-control" required>
+                <option value="Kopf">Kopf</option>
+                <option value="Brust">Brust</option>
+                <option value="Bauch">Bauch</option>
+                <option value="Rücken">Rücken</option>
+                <option value="Beine">Beine</option>
+                <option value="Arme">Arme</option>
+                <option value="Anderes">Anderes</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Kommentar</label>
+            <textarea th:field="*{comment}" class="form-control" rows="3"></textarea>
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Speichern">
+        <a href="/" class="btn btn-default">Abbrechen</a>
+    </form>
+</div>
+</body>
+</html>
