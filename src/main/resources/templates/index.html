@@ -7,10 +7,14 @@
 </head>
 <body>
 <div class="container">
-    <h1>Hallo</h1>
-    Datum: <span th:text="${today}"></span>
-    <div>
-        <a href="/patient/list">patient list</a>
+    <h1>Radiologie-Institut</h1>
+    <p>Datum: <span th:text="${today}"></span></p>
+    
+    <div class="list-group">
+        <a href="/patient/add" class="list-group-item">Patient registrieren</a>
+        <a href="/patient/list" class="list-group-item">Patientenliste anzeigen</a>
+        <a href="/reservation/add" class="list-group-item">Reservierung erfassen</a>
+        <a href="/reservation/select-device" class="list-group-item">Reservierungsliste für ein Gerät anzeigen</a>
     </div>
 </div>
 </body>
