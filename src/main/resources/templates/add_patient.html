@@ -8,6 +8,7 @@
 <body>
     <div class="container">
         <h1>Patient registrieren</h1>
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
         <form th:action="@{/patient/add}" th:object="${patient}" method="post">
             <div class="form-group">
                 <label>Sozialversicherungsnummer</label>

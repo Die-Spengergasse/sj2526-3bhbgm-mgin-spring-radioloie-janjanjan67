@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @Controller
 @RequestMapping("/reservation")
 public class ReservationController {
@@ -30,7 +32,25 @@ public class ReservationController {
     }
 
     @PostMapping("/add")
-    public String addReservation(@ModelAttribute Reservation reservation) {
+    public String addReservation(@ModelAttribute Reservation reservation, Model model) {
+        if (reservation.getReservationTime() != null && reservation.getReservationTime().isBefore(LocalDateTime.now())) {
+            model.addAttribute("error", "Ein Termin in der Vergangenheit kann nicht reserviert werden.");
+            model.addAttribute("patients", patientRepository.findAll());
+            model.addAttribute("devices", deviceRepository.findAll());
+            return "add_reservation";
+        }
+        if (reservation.getDevice() != null && !reservationRepository.findByDeviceIdAndReservationTime(reservation.getDevice().getId(), reservation.getReservationTime()).isEmpty()) {
+            model.addAttribute("error", "Das Gerät ist zu diesem Zeitpunkt bereits durch einen anderen Termin belegt.");
+            model.addAttribute("patients", patientRepository.findAll());
+            model.addAttribute("devices", deviceRepository.findAll());
+            return "add_reservation";
+        }
+        if (reservation.getPatient() != null && !reservationRepository.findByPatientAndReservationTime(reservation.getPatient(), reservation.getReservationTime()).isEmpty()) {
+            model.addAttribute("error", "Der Patient hat zu diesem Zeitpunkt bereits einen anderen Termin.");
+            model.addAttribute("patients", patientRepository.findAll());
+            model.addAttribute("devices", deviceRepository.findAll());
+            return "add_reservation";
+        }
         reservationRepository.save(reservation);
         return "redirect:/";
     }

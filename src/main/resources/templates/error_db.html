@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Datenbankfehler</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron" style="margin-top: 50px; background-color: #f2dede; color: #a94442;">
+        <h1>Datenbankfehler</h1>
+        <p th:text="${error}">Fehlermeldung</p>
+        <hr>
+        <p>Bitte überprüfen Sie, ob der Datenbankserver (MySQL) gestartet ist und die Verbindungseinstellungen korrekt sind.</p>
+        <a href="/" class="btn btn-primary">Zur Startseite</a>
+    </div>
+</div>
+</body>
+</html>

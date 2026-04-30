@@ -8,6 +8,7 @@
 <body>
 <div class="container">
     <h1>Neue Reservierung erfassen</h1>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
     <form th:action="@{/reservation/add}" th:object="${reservation}" method="post">
         
         <div class="form-group">

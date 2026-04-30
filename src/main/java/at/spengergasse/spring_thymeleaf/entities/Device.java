@@ -6,9 +6,9 @@ import jakarta.persistence.Id;
 @Entity
 public class Device {
     @Id
-    private String id; // Bezeichnung (ID)
-    private String type; // Art des Gerätes
-    private String location; // Standort (Raumnummer)
+    private String id;
+    private String type;
+    private String location;
 
     public String getId() {
         return id;
